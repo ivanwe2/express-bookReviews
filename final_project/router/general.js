@@ -51,6 +51,24 @@ public_users.get('/isbn/:isbn',function (req, res) {
 
   return res.status(404).send("Could not find book with ISBN: " + isbn);
  });
+
+ public_users.get('/async/isbn/:isbn', async function (req, res) {
+    const isbn = req.params.isbn;
+    const response = await axios(`https://rusev37-5000.theianext-0-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/isbn/${isbn}`);
+    return res.send(JSON.stringify(response, null, 4));
+   });
+
+   public_users.get('/async/author/:author', async function (req, res) {
+    const author = req.params.author;
+    const response = await axios(`https://rusev37-5000.theianext-0-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/author/${author}`);
+    return res.send(JSON.stringify(response.data, null, 4));
+   });
+
+   public_users.get('/async/title/:title', async function (req, res) {
+    const title = req.params.title;
+    const response = await axios(`https://rusev37-5000.theianext-0-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/title/${title}`);
+    return res.send(JSON.stringify(response.data, null, 4));
+   });
   
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
